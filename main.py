@@ -10,6 +10,7 @@ from pidev.kivy.PassCodeScreen import PassCodeScreen
 from pidev.kivy.PauseScreen import PauseScreen
 from pidev.kivy import DPEAButton
 from pidev.kivy import ImageButton
+from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty
 
 MIXPANEL_TOKEN = "x"
 MIXPANEL = MixPanel("Project Name", MIXPANEL_TOKEN)
@@ -40,6 +41,31 @@ class MainScreen(Screen):
     Class to handle the main screen and its associated touch events
     """
 
+    def clickPressed(self, label):
+        clicks = int(label)
+        clicks = clicks +1
+        clicks = str(clicks)
+        self.ids.click_counter.text = clicks
+
+    def togglePressed(self, label):
+        toggle = label
+        if toggle == "On":
+            self.ids.toggle_text.text = "Off"
+        else:
+            self.ids.toggle_text.text = "On"
+
+    def motorPressed(self, label):
+        toggle = label
+        if toggle == "Motor On":
+            self.ids.toggle_motor_label.text = "Motor Off"
+        else:
+            self.ids.toggle_motor_label.text = "Motor On"
+
+
+    def imagePressed(self):
+
+        PauseScreen.pause(pause_scene_name='pauseScene', transition_back_scene='main', text="Test", pause_duration=5)
+
     def pressed(self):
         """
         Function called on button touch event for button with id: testButton
@@ -69,8 +95,10 @@ class AdminScreen(Screen):
         """
         Builder.load_file('AdminScreen.kv')
 
-        PassCodeScreen.set_admin_events_screen(ADMIN_SCREEN_NAME)  # Specify screen name to transition to after correct password
-        PassCodeScreen.set_transition_back_screen(MAIN_SCREEN_NAME)  # set screen name to transition to if "Back to Game is pressed"
+        PassCodeScreen.set_admin_events_screen(
+            ADMIN_SCREEN_NAME)  # Specify screen name to transition to after correct password
+        PassCodeScreen.set_transition_back_screen(
+            MAIN_SCREEN_NAME)  # set screen name to transition to if "Back to Game is pressed"
 
         super(AdminScreen, self).__init__(**kwargs)
 
@@ -97,6 +125,8 @@ class AdminScreen(Screen):
         :return: None
         """
         quit()
+
+
 """
 Widget additions
 """
