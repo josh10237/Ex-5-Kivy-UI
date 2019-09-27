@@ -17,6 +17,7 @@ MIXPANEL = MixPanel("Project Name", MIXPANEL_TOKEN)
 
 SCREEN_MANAGER = ScreenManager()
 MAIN_SCREEN_NAME = 'main'
+IMAGE_SCREEN_NAME = 'image_screen'
 ADMIN_SCREEN_NAME = 'admin'
 
 
@@ -64,7 +65,7 @@ class MainScreen(Screen):
 
     def imagePressed(self):
 
-        PauseScreen.pause(pause_scene_name='pauseScene', transition_back_scene='main', text="Test", pause_duration=5)
+        SCREEN_MANAGER.current = 'image_screen'
 
     def pressed(self):
         """
@@ -80,7 +81,10 @@ class MainScreen(Screen):
         :return: None
         """
         SCREEN_MANAGER.current = 'passCode'
-
+class ImageScreen(Screen):
+    def __init__(self, **kwargs):
+        Builder.load_file('ImageScreen.kv')
+        super(ImageScreen, self).__init__(**kwargs)
 
 class AdminScreen(Screen):
     """
@@ -135,6 +139,7 @@ Builder.load_file('main.kv')
 SCREEN_MANAGER.add_widget(MainScreen(name=MAIN_SCREEN_NAME))
 SCREEN_MANAGER.add_widget(PassCodeScreen(name='passCode'))
 SCREEN_MANAGER.add_widget(PauseScreen(name='pauseScene'))
+SCREEN_MANAGER.add_widget(ImageScreen(name=IMAGE_SCREEN_NAME))
 SCREEN_MANAGER.add_widget(AdminScreen(name=ADMIN_SCREEN_NAME))
 
 """
