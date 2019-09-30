@@ -69,9 +69,19 @@
 
     ImageButton:
         id: logo_image_button
-        source: "../../Desktop/stanford.png"
-        size: 80, 100
+        source: "../../Desktop/sbcc.jpg"
+        size: 100, 100
         font_size: 30
         x: root.width * 0.5
         y: root.height * 0.5
         on_press: root.imagePressed()
+
+
+    ImageButton:
+        id: anim_button_main
+        source: "../../Desktop/stanford.png"
+        size: 80, 100
+        font_size: 30
+        x: root.width * 0.05
+        y: root.height * 0.8
+        on_press: root.stanfordPressed()

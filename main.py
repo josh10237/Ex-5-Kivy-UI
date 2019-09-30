@@ -10,6 +10,7 @@ from pidev.kivy.PassCodeScreen import PassCodeScreen
 from pidev.kivy.PauseScreen import PauseScreen
 from pidev.kivy import DPEAButton
 from pidev.kivy import ImageButton
+from kivy.animation import Animation
 from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty
 
 MIXPANEL_TOKEN = "x"
@@ -19,7 +20,7 @@ SCREEN_MANAGER = ScreenManager()
 MAIN_SCREEN_NAME = 'main'
 IMAGE_SCREEN_NAME = 'image_screen'
 ADMIN_SCREEN_NAME = 'admin'
-
+STANFORD_SCREEN_NAME = 'stanford_screen'
 
 class ProjectNameGUI(App):
     """
@@ -67,6 +68,12 @@ class MainScreen(Screen):
 
         SCREEN_MANAGER.current = 'image_screen'
 
+    def stanfordPressed(self):
+
+        anim_to_random_pos()
+        SCREEN_MANAGER.current = 'image_screen'
+
+
     def pressed(self):
         """
         Function called on button touch event for button with id: testButton
@@ -81,10 +88,33 @@ class MainScreen(Screen):
         :return: None
         """
         SCREEN_MANAGER.current = 'passCode'
+
+    def anim_to_random_pos(self):
+        random_x = random() * (Window.width - self.width)
+        random_y = random() * (Window.height - self.height)
+
+        anim = Animation(x=random_x, y=random_y,
+                             duration=4,
+                             t='in_sine')
+        anim.start(self)
+
+
+
 class ImageScreen(Screen):
     def __init__(self, **kwargs):
         Builder.load_file('ImageScreen.kv')
         super(ImageScreen, self).__init__(**kwargs)
+    def imageBack(self):
+
+        SCREEN_MANAGER.current = 'main'
+
+class StanfordScreen(Screen):
+    def __init__(self, **kwargs):
+            Builder.load_file('StanfordScreen.kv')
+            super(StanfordScreen, self).__init__(**kwargs)
+
+    def imageBack(self):
+        SCREEN_MANAGER.current = 'main'
 
 class AdminScreen(Screen):
     """
@@ -140,6 +170,7 @@ SCREEN_MANAGER.add_widget(MainScreen(name=MAIN_SCREEN_NAME))
 SCREEN_MANAGER.add_widget(PassCodeScreen(name='passCode'))
 SCREEN_MANAGER.add_widget(PauseScreen(name='pauseScene'))
 SCREEN_MANAGER.add_widget(ImageScreen(name=IMAGE_SCREEN_NAME))
+SCREEN_MANAGER.add_widget(StanfordScreen(name=STANFORD_SCREEN_NAME))
 SCREEN_MANAGER.add_widget(AdminScreen(name=ADMIN_SCREEN_NAME))
 
 """
