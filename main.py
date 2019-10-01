@@ -11,6 +11,8 @@ from pidev.kivy.PauseScreen import PauseScreen
 from pidev.kivy import DPEAButton
 from pidev.kivy import ImageButton
 from kivy.animation import Animation
+from kivy.uix.behaviors import ButtonBehavior
+import time
 from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty
 
 MIXPANEL_TOKEN = "x"
@@ -70,8 +72,12 @@ class MainScreen(Screen):
 
     def stanfordPressed(self):
 
-        anim_to_random_pos()
-        SCREEN_MANAGER.current = 'image_screen'
+        self.ids.anim_button_main.source = '../../Desktop/check.png'
+
+    def stanfordReleased(self):
+
+        SCREEN_MANAGER.current = 'stanford_screen'
+        self.ids.anim_button_main.source = '../../Desktop/stanford.png'
 
 
     def pressed(self):
@@ -89,15 +95,6 @@ class MainScreen(Screen):
         """
         SCREEN_MANAGER.current = 'passCode'
 
-    def anim_to_random_pos(self):
-        random_x = random() * (Window.width - self.width)
-        random_y = random() * (Window.height - self.height)
-
-        anim = Animation(x=random_x, y=random_y,
-                             duration=4,
-                             t='in_sine')
-        anim.start(self)
-
 
 
 class ImageScreen(Screen):
@@ -106,15 +103,25 @@ class ImageScreen(Screen):
         super(ImageScreen, self).__init__(**kwargs)
     def imageBack(self):
 
-        SCREEN_MANAGER.current = 'main'
+       SCREEN_MANAGER.current = 'main'
 
 class StanfordScreen(Screen):
     def __init__(self, **kwargs):
             Builder.load_file('StanfordScreen.kv')
             super(StanfordScreen, self).__init__(**kwargs)
 
-    def imageBack(self):
+    def imageAnim(self):
+
+        anim = Animation(x=100, y=100)
+        anim.start(self.ids.anim_button)
+
+    def imageStanfordBack(self):
+
         SCREEN_MANAGER.current = 'main'
+
+        self.ids.anim_button.x = root.width * 0.5
+        self.ids.anim_button.x = root.height * 0.5
+
 
 class AdminScreen(Screen):
     """

@@ -53,11 +53,13 @@
     Slider:
         id: slider
         size_hint_x: .33
+        size_hint_y: .25
         x: root.width * 0.37
         y: root.height * -.05
         min: 0
         max: 100
         step: 1
+
         orientation: 'horizontal'
 
     Label:
@@ -85,3 +87,4 @@
         x: root.width * 0.05
         y: root.height * 0.8
         on_press: root.stanfordPressed()
+        on_release: root.stanfordReleased()

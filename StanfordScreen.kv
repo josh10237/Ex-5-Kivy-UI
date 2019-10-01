@@ -4,11 +4,20 @@
         size_hint: None, None
 
     DPEAButton:
-        id: back_button
+        id: anim_back_button
         text: 'back'
         size: 100, 100
         font_size: 30
         x: root.width * 0.05
         y: root.height * 0.8
         color: 0, 1, 0, 1
-        on_press: root.imageBack()
+        on_press: root.imageStanfordBack()
+
+    ImageButton:
+        id: anim_button
+        source: "../../Desktop/sbcc.jpg"
+        size: 100, 100
+        font_size: 30
+        x: root.width * 0.5
+        y: root.height * 0.5
+        on_press: root.imageAnim()
