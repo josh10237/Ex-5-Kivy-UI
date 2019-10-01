@@ -14,6 +14,7 @@ from kivy.animation import Animation
 from kivy.uix.behaviors import ButtonBehavior
 import time
 from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty
+from Joystick import Joystick
 
 MIXPANEL_TOKEN = "x"
 MIXPANEL = MixPanel("Project Name", MIXPANEL_TOKEN)
@@ -118,9 +119,6 @@ class StanfordScreen(Screen):
     def imageStanfordBack(self):
 
         SCREEN_MANAGER.current = 'main'
-
-        self.ids.anim_button.x = root.width * 0.5
-        self.ids.anim_button.x = root.height * 0.5
 
 
 class AdminScreen(Screen):

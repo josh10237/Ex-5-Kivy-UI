@@ -78,6 +78,14 @@
         y: root.height * 0.5
         on_press: root.imagePressed()
 
+    Label:
+        id: xy
+        text: "o"
+        size: 100, 100
+        font_size: 20
+        x: str(root.X_axis)#root.width * .2
+        y: str(root.Y_axis)#root.height * .2
+        color: 1, 1, 1, 1
 
     ImageButton:
         id: anim_button_main
