@@ -1,5 +1,7 @@
 import os
-
+from threading import Thread
+from time import sleep
+import pygame
 from kivy.app import App
 from kivy.core.window import Window
 from kivy.lang import Builder
@@ -14,7 +16,7 @@ from kivy.animation import Animation
 from kivy.uix.behaviors import ButtonBehavior
 import time
 from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty
-from Joystick import Joystick
+from pidev.Joystick import Joystick
 
 MIXPANEL_TOKEN = "x"
 MIXPANEL = MixPanel("Project Name", MIXPANEL_TOKEN)
@@ -40,11 +42,30 @@ class ProjectNameGUI(App):
 
 Window.clearcolor = (1, 1, 1, 1)  # White
 
+joystick = Joystick(0, False)
 
 class MainScreen(Screen):
+
+
     """
     Class to handle the main screen and its associated touch events
     """
+    def thread_func(self):
+        x = Thread(target = self.joy_update)
+        x.start()
+
+    def joy_update(self):
+        while True:
+
+            for i in range(11):
+                if joystick.get_button_state(i) == 1:
+                    self.ids.joystick_label.text = str(i)
+                    break
+
+            self.ids.joy_pos_label.center_x = joystick.get_axis('x') * self.width/2
+            self.ids.joy_pos_label.center_y = joystick.get_axis('y') * self.height/2
+            self.ids.coords.text = "{:.3f} {:.3f}".format(joystick.get_axis('x'), joystick.get_axis('y'))
+            sleep(.1)
 
     def clickPressed(self, label):
         clicks = int(label)

@@ -1,5 +1,6 @@
 <MainScreen>:
     name: 'main'
+    on_enter: root.thread_func()
     FloatLayout:
         size_hint: None, None
 
@@ -41,6 +42,28 @@
         pos_hint:{"y":-.3,"x": .04}
         color: 0, 0, 0, .5
 
+    Label:
+        id: joystick_label
+        font_size: 30
+        center_x: root.width * 0
+        center_y: root.height * 0.25
+        color: 0, 0, 0, 1
+
+    Label:
+        id: joy_pos_label
+        font_size: 30
+        center_x: root.width * 0
+        center_y: root.height * 0.25
+        color: 0, 0, 0, 1
+
+    Label:
+        id: coords
+        font_size: 30
+        center_x: root.width * 0.1
+        center_y: root.height * 0.05
+        color: 0, 0, 0, 1
+
+
     DPEAButton:
         text: "Motor"
         size: 100, 100
@@ -78,14 +101,6 @@
         y: root.height * 0.5
         on_press: root.imagePressed()
 
-    Label:
-        id: xy
-        text: "o"
-        size: 100, 100
-        font_size: 20
-        x: str(root.X_axis)#root.width * .2
-        y: str(root.Y_axis)#root.height * .2
-        color: 1, 1, 1, 1
 
     ImageButton:
         id: anim_button_main
