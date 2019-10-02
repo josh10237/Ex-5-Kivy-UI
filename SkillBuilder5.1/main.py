@@ -60,11 +60,9 @@ class MainScreen(Screen):
             for i in range(11):
                 if joystick.get_button_state(i) == 1:
                     self.ids.joystick_label.text = str(i)
-                    break
-
-            self.ids.joy_pos_label.center_x = joystick.get_axis('x') * self.width/2
-            self.ids.joy_pos_label.center_y = joystick.get_axis('y') * self.height/2
-            self.ids.coords.text = "{:.3f} {:.3f}".format(joystick.get_axis('x'), joystick.get_axis('y'))
+            self.ids.joy_pos_label.center_x = joystick.get_axis('x') * self.width/2 + self.width/2
+            self.ids.joy_pos_label.center_y = joystick.get_axis('y') * -(self.height/2) + (self.height/2)
+            self.ids.coords.text = "x= {:.3f}, y= {:.3f}".format(joystick.get_axis('x'), joystick.get_axis('y'))
             sleep(.1)
 
     def clickPressed(self, label):
